@@ -1,0 +1,14 @@
+services:
+  php:
+    build: ./docker
+    volumes:
+      - ./:/var/www
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./:/var/www:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
