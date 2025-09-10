@@ -1,15 +1,33 @@
 <?php
-declare(strict_types=1); //force le typage pas de declaration bizarre
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); //parse l'url sans query string
-if (!$path) $path = '/';
+declare(strict_types=1);
 
-//tableau cle=>valeur micro mvc
+require __DIR__ . '/../app/DB.php';
+require __DIR__ . '/../app/controllers/AuthController.php';
+
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+
 $routes = [
-  '/' => fn() => require __DIR__ . '/../app/views/home.php',
-  '/signup' => fn() => require __DIR__ . '/../app/views/signup.php',
-  '/login' => fn() => require __DIR__ . '/../app/views/login.php',
+    '/' => fn() => require __DIR__ . '/../app/views/home.php',
+    '/signup' => function () {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new AuthController)->signup();
+            return;
+        }
+        require __DIR__ . '/../app/views/signup.php';
+    },
+    '/login' => function () {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new AuthController)->login();
+            return;
+        }
+        require __DIR__ . '/../app/views/login.php';
+    },
+    '/logout' => function () {
+        setcookie("session_user", "", time() - 3600, "/");
+        header("Location: /");
+    },
 ];
 
-if (isset($routes[$path])) { $routes[$path](); die; }//die = alias de exit
-/* var_dump($path->errorInfo()); */
-http_response_code(404); echo ("not found");
+if (isset($routes[$path])) { $routes[$path](); exit; }
+http_response_code(404);
+echo "Not found";

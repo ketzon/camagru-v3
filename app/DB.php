@@ -1,5 +1,3 @@
-/* tuto pdo: */
-/* https://www.youtube.com/watch?v=Rh7mXaZl1oc&ab_channel=Grafikart.fr */
 <?php
 
 /*

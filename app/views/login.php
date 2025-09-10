@@ -1,1 +1,6 @@
-<h1> login </h1>
+<h1> Login Form</h1>
+<form method="post">
+    <input type="text" name="email" placeholder="Email">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Login</button>
+</form>
