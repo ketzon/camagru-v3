@@ -10,5 +10,6 @@ $routes = [
   '/login' => fn() => require __DIR__ . '/../app/views/login.php',
 ];
 
-if (isset($routes[$path])) { $routes[$path](); exit; }
-http_response_code(404); echo "Not found";
+if (isset($routes[$path])) { $routes[$path](); die; }//die = alias de exit
+/* var_dump($path->errorInfo()); */
+http_response_code(404); echo ("not found");
