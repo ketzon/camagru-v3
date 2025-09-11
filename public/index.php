@@ -26,6 +26,9 @@ $routes = [
         setcookie("session_user", "", time() - 3600, "/");
         header("Location: /");
     },
+    '/editor' => fn() => require __DIR__ . '/../app/views/editor.php',
+
+    '/void' => fn() => require __DIR__ . '/../app/views/void.php',
 ];
 
 if (isset($routes[$path])) { $routes[$path](); exit; }
