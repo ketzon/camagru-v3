@@ -1,13 +1,14 @@
-<h1>Éditeur</h1>
-<video id="video" autoplay playsinline></video>
+<h1>editor</h1>
+<video id="video" autoplay playsinline></video> 
 <canvas id="canvas"></canvas>
-<button id="snap">prendre la photo</button>
+<button id="snap">take picture</button>
 
 <script>
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+//inject stream in object video
 async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -17,6 +18,7 @@ async function startCamera() {
     }
 }
 
+//take a screenshot on click
 document.getElementById('snap').addEventListener('click', () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;

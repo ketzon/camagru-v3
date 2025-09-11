@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+session_start([
+  'cookie_httponly' => true, //protection contre les attaques xss, pas de cookie en js
+  'cookie_secure'   => isset($_SERVER['HTTPS']), //si https, cookie envoyer en https only
+  'cookie_samesite' => 'Lax', //pas de cookie auto crossite empeche CSRF (cross site request forgery)
+]);
 
 require __DIR__ . '/../app/DB.php';
 require __DIR__ . '/../app/controllers/AuthController.php';
