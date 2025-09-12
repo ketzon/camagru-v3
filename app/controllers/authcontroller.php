@@ -41,8 +41,9 @@ class AuthController {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['pass_hash'])) {
-      setcookie("session_user", $user['id'], time()+3600, "/");
-      header("Location: /"); //redirige home si bien co
+        $_SESSION['uid'] = (int)$user['id'];
+        flash('ok', '[auth] welcome !');
+        header('Location: /');
     } else {
       echo "Identifiants invalides";
     }

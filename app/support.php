@@ -1,6 +1,4 @@
 <?php
-/* function auth_id(): ?int { return isset($_SESSION['uid']) ? (int)$_SESSION['uid'] : null; } */
-
 //si user co return son id, sinon null
 function auth_id(): ?int {
     $flag = isset($_SESSION['uid']);
@@ -11,20 +9,25 @@ function auth_id(): ?int {
     }
 }
 
-var_dump(auth_id()); 
+//si pas co, renvoyer au login
+function require_auth(): void {
+    if (!auth_id()) {
+        header('Location: /login');
+        exit;
+    }
+}
 
-$_SESSION['uid'] = 42;
-var_dump(auth_id());
-
-$_SESSION['uid'] = "123";
-var_dump(auth_id());
-
-
-/* function require_auth(): void { if (!auth_id()) { header('Location: /login'); exit; } } */
-
-
-
-/* function flash(string $k, ?string $v=null) { */
-/*   if ($v === null) { $x = $_SESSION['_flash'][$k] ?? null; unset($_SESSION['_flash'][$k]); return $x; } */
-/*   $_SESSION['_flash'][$k] = $v; */
-/* } */
+//stock un message cle->valeur en session (global)
+function flash(string $keys, ?string $message=null) {
+    if ($message === null) { 
+        if (isset($_SESSION['flash'][$keys])){
+            $value = $_SESSION['flash'][$keys];
+        }
+        else {
+            $value = null;
+        }
+        unset($_SESSION['flash'][$keys]); 
+        return $value; 
+    }
+    $_SESSION['flash'][$keys] = $message;
+}

@@ -7,7 +7,8 @@ session_start([
 ]);
 
 require __DIR__ . '/../app/DB.php';
-require __DIR__ . '/../app/controllers/AuthController.php';
+require __DIR__ . '/../app/controllers/authcontroller.php';
+require __DIR__ . '/../app/support.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
 
@@ -28,7 +29,7 @@ $routes = [
         require __DIR__ . '/../app/views/login.php';
     },
     '/logout' => function () {
-        setcookie("session_user", "", time() - 3600, "/");
+        session_destroy();
         header("Location: /");
     },
     '/editor' => fn() => require __DIR__ . '/../app/views/editor.php',
