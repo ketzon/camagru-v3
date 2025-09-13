@@ -28,4 +28,6 @@ ld:
 		fi \
 	fi; \
 	lazydocker
+sql:
+	sqlite3 storage/db.sqlite
 re: fclean all
