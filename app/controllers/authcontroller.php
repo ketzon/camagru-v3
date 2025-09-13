@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . '/../DB.php';
+require_once __DIR__ . '/../csrf.php';
 
 class AuthController {
   public function signup(): void {
+    Csrf::checkToken();
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -32,6 +34,7 @@ class AuthController {
   }
 
   public function login(): void {
+    Csrf::checkToken();
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 

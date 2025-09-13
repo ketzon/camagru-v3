@@ -8,7 +8,7 @@ session_start([
 
 require __DIR__ . '/../app/DB.php';
 require __DIR__ . '/../app/controllers/authcontroller.php';
-require __DIR__ . '/../app/support.php';
+require __DIR__ . '/../app/support.php'; //rename helper peut etre?
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
 

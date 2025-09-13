@@ -16,4 +16,16 @@ clean: down
 	docker container prune --force
 fclean: clean
 	docker system prune --all --force
+ld:
+	@if command -v lazydocker >/dev/null 2>&1; then \
+		echo "launching lazydocker"; \
+	else \
+		echo "installation de lazydocker..."; \
+		if command -v brew >/dev/null 2>&1; then \
+			brew install jesseduffield/lazydocker/lazydocker; \
+		else \
+			curl -s https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash; \
+		fi \
+	fi; \
+	lazydocker
 re: fclean all
