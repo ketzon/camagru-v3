@@ -43,7 +43,7 @@ $routes = [
         /* } */
         /* require __DIR__.'/../app/controllers/ImageController.php'; */
         require __DIR__.'/../app/services/ImageService.php';
-        /* (new ImageController)->compose(); */
+        /* (new ImageService)->compose(); */
 
     },
 ];
