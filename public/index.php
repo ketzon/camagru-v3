@@ -8,7 +8,7 @@ session_start([
 
 require __DIR__ . '/../app/DB.php';
 require __DIR__ . '/../app/controllers/authcontroller.php';
-require __DIR__ . '/../app/support.php'; //rename helper peut etre?
+require __DIR__ . '/../app/utils.php';
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
 
@@ -34,7 +34,18 @@ $routes = [
     },
     '/editor' => fn() => require __DIR__ . '/../app/views/editor.php',
 
-    '/void' => fn() => require __DIR__ . '/../app/views/void.php',
+    '/compose' => function () {
+        require_auth();
+        echo 'in building process';
+        /* if ($_SERVER['REQUEST_METHOD'] !== 'POST') { */ 
+        /*     http_response_code(405); */
+        /*     exit; */
+        /* } */
+        /* require __DIR__.'/../app/controllers/ImageController.php'; */
+        require __DIR__.'/../app/services/ImageService.php';
+        /* (new ImageController)->compose(); */
+
+    },
 ];
 
 if (isset($routes[$path])) { $routes[$path](); exit; }
