@@ -36,15 +36,13 @@ $routes = [
 
     '/compose' => function () {
         require_auth();
-        echo 'in building process';
+        /* add later */ 
         /* if ($_SERVER['REQUEST_METHOD'] !== 'POST') { */ 
-        /*     http_response_code(405); */
+        /*     http_response_code(400); */
         /*     exit; */
         /* } */
-        /* require __DIR__.'/../app/controllers/ImageController.php'; */
-        require __DIR__.'/../app/services/ImageService.php';
-        /* (new ImageService)->compose(); */
-
+        require __DIR__.'/../app/controllers/ImageController.php';
+        (new ImageController)->compose();
     },
 ];
 
