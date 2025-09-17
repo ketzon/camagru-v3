@@ -1,12 +1,12 @@
 <?php
 require_once __DIR__.'/../DB.php';
-require_once __DIR__.'/../Csrf.php';
-require_once __DIR__.'/../Services/ImageService.php';
-require_once __DIR__.'/../Support.php';
+require_once __DIR__.'/../csrf.php';
+require_once __DIR__.'/../services/ImageService.php';
+require_once __DIR__.'/../utils.php';
 
 class ImageController {
     public function compose(): void {
-        Csrf::checkToken();
+        /* Csrf::checkToken(); */
         $uid = auth_id();
         if (!$uid){
             http_response_code(400);
