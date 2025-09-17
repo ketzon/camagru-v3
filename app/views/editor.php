@@ -18,9 +18,8 @@
         accept="image/*"
 />
 
-//send /compose pour build overlay + image
 <form id="send" method="post" action="/compose" enctype="multipart/form-data">
-  <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../Csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
+  <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
   <input type="hidden" name="data_url" id="data_url">
   <input type="hidden" name="overlay_path" id="overlay_path">
   <button type="submit">compose server side</button>
@@ -30,9 +29,9 @@
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const overlay = canvas.getContext('overlay');
-const data_url = canvas.getContext('data_url');
-const overlay_path = canvas.getContext('overlay_path');
+const overlay = document.getElementById('overlay');
+const data_url = document.getElementById('data_url');
+const overlay_path = document.getElementById('overlay_path');
 
 
 
@@ -57,6 +56,7 @@ document.getElementById('snap').addEventListener('click', () => {
 document.getElementById('upload').addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return ;
+    const img = new Image();
     img.onload = () => {
         canvas.width = img.width;
         canvas.height = img.width;
@@ -71,7 +71,7 @@ overlay.addEventListener('change', () => {
 
 //send
 document.getElementById('send').addEventListener('submit', () => {
-    data_url = canvas.toDataUrl('image/png') ;
+    data_url.value = canvas.toDataURL('image/png');
 });
 
 startCamera();

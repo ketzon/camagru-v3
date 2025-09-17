@@ -21,6 +21,7 @@ class ImageController {
         }
         // 1) reception image soit data_url (canvas), soit upload direct 
         $srcAbs = null;
+        var_dump($_POST['data_url']);
         if (!empty($_POST['data_url'])) {
             $data = $_POST['data_url'];
             if (!preg_match('#^data:image/(png|jpeg);base64,#', $data)) { 
@@ -41,7 +42,7 @@ class ImageController {
             $srcAbs = __DIR__ . '/../../storage/uploads/'.uniqid('u_', true).'.'.$ext;
             move_uploaded_file($f['tmp_name'], $srcAbs);
         } else {
-            exit('error no image recieve');
+            exit('error no image receive');
         }
         // 2) composer
         $outAbs = __DIR__ . '/../../storage/renders/'.uniqid('r_', true).'.png';

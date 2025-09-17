@@ -36,11 +36,10 @@ $routes = [
 
     '/compose' => function () {
         require_auth();
-        /* add later */ 
-        /* if ($_SERVER['REQUEST_METHOD'] !== 'POST') { */ 
-        /*     http_response_code(400); */
-        /*     exit; */
-        /* } */
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+            http_response_code(400);
+            exit;
+        }
         require __DIR__.'/../app/controllers/ImageController.php';
         (new ImageController)->compose();
     },
