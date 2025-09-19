@@ -21,7 +21,6 @@ class ImageController {
         }
         // 1) reception image soit data_url (canvas), soit upload direct 
         $srcAbs = null;
-        var_dump($_POST['data_url']);
         if (!empty($_POST['data_url'])) {
             $data = $_POST['data_url'];
             if (!preg_match('#^data:image/(png|jpeg);base64,#', $data)) { 
@@ -29,8 +28,9 @@ class ImageController {
             }
             [$meta, $b64] = explode(',', $data, 2);
             $bin = base64_decode($b64, true);
-            if ($bin === false) 
-            exit('wrong base64');
+            if ($bin === false){ 
+                exit('wrong base64');
+            }
             $ext = str_contains($meta,'png') ? 'png' : 'jpg';
             $srcAbs = __DIR__ . '/../../storage/uploads/'.uniqid('u_', true).'.'.$ext;
             file_put_contents($srcAbs, $bin);

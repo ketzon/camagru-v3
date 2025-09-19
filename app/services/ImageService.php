@@ -38,6 +38,3 @@ class ImageService {
         return $outPath;
     }
 }
-
-?>
-
