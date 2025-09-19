@@ -37,14 +37,59 @@ $routes = [
     '/compose' => function () {
         require_auth();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
-            http_response_code(400);
+            http_response_code(405);
             exit;
         }
         require __DIR__.'/../app/controllers/ImageController.php';
         (new ImageController)->compose();
     },
+    //need to implement gallery
+    '/gallery' => function () { require __DIR__ . '/../app/controllers/GalleryController';
+        (new GalleryController)->list();
+    },
+    '/image' => function () {
+        require __DIR__ . '/../app/controllers/GalleryController.php';
+        (new GalleryController)->show();
+    },
+    // sert l’image finale depuis storage (secure)
+    '/img' => function () {
+        require __DIR__ . '/../app/controllers/MediaController.php';
+        (new MediaController)->render();
+    },
+    // actions
+    '/like' => function () {
+        require_auth();
+        if ($_SERVER['REQUEST_METHOD']!=='POST') { 
+            http_response_code(405); 
+            exit; 
+        }
+        require __DIR__ . '/../app/controllers/LikeController.php';
+        (new LikeController)->like();
+    },
+    '/comment' => function () {
+        require_auth();
+        if ($_SERVER['REQUEST_METHOD']!=='POST') { 
+            http_response_code(405); 
+            exit; 
+        }
+        require __DIR__ . '/../app/controllers/CommentController.php';
+        (new CommentController)->add();
+    },
 ];
 
-if (isset($routes[$path])) { $routes[$path](); exit; }
+if (preg_match('#^/image/(\d+)$#', $path, $m)) { $_GET['id'] = (int)$m[1]; 
+    $routes['/image'](); 
+    exit; 
+}
+if (preg_match('#^/img/(\d+)\.png$#', $path, $m)) { 
+    $_GET['id'] = (int)$m[1]; 
+    $routes['/img'](); 
+    exit; 
+}
+
+if (isset($routes[$path])) { 
+    $routes[$path](); 
+    exit; 
+}
 http_response_code(404);
-echo "Not found";
+echo "[404] page not found";
