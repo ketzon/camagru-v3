@@ -2,8 +2,10 @@
 
 <select id="overlay">
     <option value="none">overlay</option>
-    <option value="../../public/overlays/hat.png">Hat</option>
-    <option value="../../public/overlays/water_flower.png">Flower</option>
+    <option value="/overlays/hat.png">Hat</option>
+    <option value="/overlays/water_flower.png">Flower</option>
+    <option value="/overlays/cloud.png">Cloud</option>
+    <option value="/overlays/kawaii.png">Kawaii</option>
 </select>
 
 
@@ -19,7 +21,7 @@
 />
 
 <form id="send" method="post" action="/compose" enctype="multipart/form-data">
-  <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
+  <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(csrf::getToken()); ?>">
   <input type="hidden" name="data_url" id="data_url">
   <input type="hidden" name="overlay_path" id="overlay_path">
   <button type="submit">compose server side</button>
@@ -33,7 +35,7 @@ const overlay = document.getElementById('overlay');
 const data_url = document.getElementById('data_url');
 const overlay_path = document.getElementById('overlay_path');
 
-
+ 
 
 //inject stream in object video
 async function startCamera() {

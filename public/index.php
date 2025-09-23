@@ -44,7 +44,7 @@ $routes = [
         (new ImageController)->compose();
     },
     //need to implement gallery
-    '/gallery' => function () { require __DIR__ . '/../app/controllers/GalleryController';
+    '/gallery' => function () { require __DIR__ . '/../app/controllers/GalleryController.php';
         (new GalleryController)->list();
     },
     '/image' => function () {

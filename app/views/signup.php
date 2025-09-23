@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../csrf.php';
-$csrf = csrf::getToken(); ?>
+$csrf = Csrf::getToken(); ?>
 
 <h1>Form Signup</h1>
 <form method="post">
