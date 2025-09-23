@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../views/DB.php';
-require_once __DIR__ . '/../views/utils.php';
+require_once __DIR__ . '/../DB.php';
+require_once __DIR__ . '/../utils.php';
 
 class GalleryController {
     public function list(): void {

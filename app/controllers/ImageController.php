@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__.'/../views/DB.php';
-require_once __DIR__.'/../views/csrf.php';
-require_once __DIR__.'/../views/services/ImageService.php';
-require_once __DIR__.'/../views/utils.php';
+require_once __DIR__.'/../DB.php';
+require_once __DIR__.'/../csrf.php';
+require_once __DIR__.'/../services/ImageService.php';
+require_once __DIR__.'/../utils.php';
 
 class ImageController {
     public function compose(): void {
