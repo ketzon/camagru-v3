@@ -5,7 +5,7 @@ require_once __DIR__ . '/../utils.php';
 class GalleryController {
     public function list(): void {
         $pdo = DB::pdo();
-        $size = max(5, (int)($_GET['size'] ?? 12)); // >= 5 exigé
+        $size = max(7, (int)($_GET['size'] ?? 12)); // 7 pour test
         $page = max(1, (int)($_GET['page'] ?? 1));
         $offset = ($page - 1) * $size;
 
@@ -57,6 +57,8 @@ class GalleryController {
             ");
         $stc->execute([$id]);
         $comments = $stc->fetchAll();
+        $uid = $_SESSION['uid'] ?? null;
+        $canInteract = $uid !== null;
         require __DIR__ . '/../views/image_show.php';
     }
 }

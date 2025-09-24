@@ -47,6 +47,7 @@ class AuthController {
         $_SESSION['uid'] = (int)$user['id'];
         flash('ok', '[auth] welcome !');
         header('Location: /');
+        exit;
     } else {
       echo "Identifiants invalides";
     }

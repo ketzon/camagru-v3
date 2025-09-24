@@ -12,9 +12,9 @@
     <?= !empty($liked) ? '(Already Liked)' : '' ?>
 </p>
 
-<?php if (auth_id()): ?>
+<?php if ($canInteract): ?>
 <form method="post" action="/like" style="margin:8px 0;">
-    <input type="hidden" name="_csrf" value="<?php require __DIR__.'/csrf.php'; echo htmlspecialchars(csrf::getToken()); ?>">
+    <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
     <input type="hidden" name="image_id" value="<?= (int)$image['id'] ?>">
     <button type="submit"><?= !empty($liked) ? '(Already Liked)' : 'Like' ?></button>
 </form>
@@ -24,9 +24,9 @@
 
 <h2>Comment</h2>
 
-<?php if (auth_id()): ?>
+<?php if ($canInteract): ?>
 <form method="post" action="/comment" style="margin-bottom:16px;">
-    <input type="hidden" name="_csrf" value="<?php require __DIR__.'/csrf.php'; echo htmlspecialchars(csrf::getToken()); ?>">
+    <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
     <input type="hidden" name="image_id" value="<?= (int)$image['id'] ?>">
     <textarea name="body" rows="3" cols="40" placeholder="Your comment..." required></textarea><br>
     <button type="submit">send</button>
