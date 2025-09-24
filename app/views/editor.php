@@ -6,6 +6,12 @@
     <option value="/overlays/water_flower.png">Flower</option>
     <option value="/overlays/cloud.png">Cloud</option>
     <option value="/overlays/kawaii.png">Kawaii</option>
+    <option value="/overlays/beard.png">Beard</option>
+    <option value="/overlays/rainbow.png">Rainbow</option>
+    <option value="/overlays/cat_claws.png">Cat claws</option>
+    <option value="/overlays/light.png">Lighting</option>
+    <option value="/overlays/bubbles.png">Bubbles</option>
+    <option value="/overlays/anime_hair.png">Anime hair</option>
 </select>
 
 

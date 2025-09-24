@@ -18,6 +18,10 @@ class ImageService {
 
         if ($overlayPath && is_file($overlayPath)) {
             $ov = imagecreatefrompng($overlayPath);
+            if (!$ov) {
+                echo ("invalid png file");
+                exit;
+            }
             imagesavealpha($ov, true);
             $ovRes = imagecreatetruecolor($w, $h);
             imagesavealpha($ovRes, true);

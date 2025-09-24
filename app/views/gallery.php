@@ -16,3 +16,5 @@ for ($i=1; $i<=$pages; $i++) {
     else echo '<a href="/gallery?page='.$i.'&size='. $size .'">'.$i.'</a> ';
 }
 echo '</nav>';
+echo '<br/>';
+echo '<a href="/editor"> editor view</a>';
