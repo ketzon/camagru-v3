@@ -7,11 +7,12 @@
     <option value="/overlays/cloud.png">Cloud</option>
     <option value="/overlays/kawaii.png">Kawaii</option>
     <option value="/overlays/beard.png">Beard</option>
-    <option value="/overlays/rainbow.png">Rainbow</option>
-    <option value="/overlays/cat_claws.png">Cat claws</option>
+    <option value="/overlays/raindow.png">Rainbow</option>
+    <option value="/overlays/cat_claws.png">Cat Claws</option>
     <option value="/overlays/light.png">Lighting</option>
     <option value="/overlays/bubbles.png">Bubbles</option>
-    <option value="/overlays/anime_hair.png">Anime hair</option>
+    <option value="/overlays/anime_hair.png">Anime Hair</option>
+    <option value="/overlays/gas_mask.png">Gas Mask</option>
 </select>
 
 
