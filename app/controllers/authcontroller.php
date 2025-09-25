@@ -34,7 +34,7 @@ class AuthController {
   }
 
   public function login(): void {
-    /* Csrf::checkToken(); */
+    Csrf::checkToken();
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 

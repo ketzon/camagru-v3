@@ -17,9 +17,9 @@ final class Csrf
         $sessionToken = $_SESSION['csrf_token'] ?? '';
         $formToken = $_POST['_csrf'] ?? '';
         $isValid = $formToken !== '' && hash_equals($sessionToken, (string)$formToken);
-        if (!$isValid) {
-            http_response_code(403);
-            exit('invalid csrf token');
-        }
+        /* if (!$isValid) { */
+        /*     http_response_code(403); */
+        /*     exit('invalid csrf token'); */
+        /* } */
     }
 }

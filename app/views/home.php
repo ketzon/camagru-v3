@@ -1,11 +1,15 @@
+<?php
+$title = 'Home';
+require __DIR__ . '/partials/header.php';
+?>
+<h1>[home] welcome on my camagru</h1>
+
 <?php if ($m = flash('ok')): ?>
-    <p><?= htmlspecialchars($m) ?></p>
+<p><?= htmlspecialchars($m) ?></p>
 <?php endif; ?>
 
 <?php if (auth_id()): ?>
-    <p><i>log as a user #<?= auth_id() ?></i></p>
-    <a href="/logout">Logout</a>
-<?php else: ?>
-    <a href="/signup">Signup</a> | <a href="/login">Login</a>
-
+<p>Logged as a user #<?= auth_id() ?></p>
 <?php endif; ?>
+
+<?php require __DIR__ . '/partials/footer.php'; ?>
