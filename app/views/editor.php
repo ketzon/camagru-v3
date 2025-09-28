@@ -1,3 +1,4 @@
+<?php require __DIR__ . '/partials/header.php';?>
 <h1>editor</h1>
 
 <select id="overlay">
@@ -85,3 +86,4 @@ document.getElementById('send').addEventListener('submit', () => {
 
 startCamera();
 </script>
+<?php require __DIR__ . '/partials/footer.php'; ?>

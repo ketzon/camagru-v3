@@ -1,3 +1,6 @@
+<?php
+require __DIR__ . '/partials/header.php';
+?>
 <h1>Galerie</h1>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
@@ -18,3 +21,4 @@ for ($i=1; $i<=$pages; $i++) {
 echo '</nav>';
 echo '<br/>';
 echo '<a href="/editor"> editor view</a>';
+require __DIR__ . '/partials/footer.php'; ?>
