@@ -7,6 +7,7 @@
 ---
 ***exemple with a basic webcam picture***
 ![exemple with a basic webcam picture](/public/images/website.png)
+
 ---
 ***picture with overlay composed in the backend***
 ![picture with overlay composed in the backend](/public/images/lighting.png)
