@@ -4,6 +4,9 @@
 3. interact with a database
 4. take/upload picture, use filter.
 5. like, comment and review them in a gallery section
-
+---
 ![exemple with a basic webcam picture](/public/images/website.png)
+***exemple with a basic webcam picture***
+---
 ![picture with overlay composed in the backend](/public/images/lighting.png)
+***picture with overlay composed in the backend***
