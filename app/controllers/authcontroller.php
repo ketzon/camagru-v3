@@ -8,21 +8,33 @@ class AuthController {
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
-
+    $uppercase   = preg_match('@[A-Z]@', $password);
+    $lowercase   = preg_match('@[a-z]@', $password);
+    $number      = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
     if (!$username || !$email || !$password) {
-      echo "tous les champs sont obligatoires";
+      echo "please fill all value";
       return;
     }
-
+    if (strlen($username) < 4 || strlen($username) > 12){
+        echo "Username must be between 4 and 12 characters";
+        return;
+    }
+    //check if email format is valid
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL )){
+        echo "please enter a valid email";
+        return;
+    }
+    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            echo "Password should be at least 8 characters in length, should include at least one upper case letter, one number and one special character.";
+            return;
+   }
+    if (!$username || !$email || !$password) {
+      echo "please enter a value";
+      return;
+    }
     //PASSWORD_DEFAULT = algo bcrypt
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    /* echo $hash; */
-    /* echo "\r"; */
-    /* echo $username; */
-    /* echo "\r"; */
-    /* echo $email; */
-    /* echo "\r"; */
-
     try {
       $pdo = DB::pdo();
       $stmt = $pdo->prepare("INSERT INTO users(username, email, pass_hash) VALUES (?, ?, ?)");
