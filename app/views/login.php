@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ . '/../csrf.php';
+require __DIR__ . '/partials/header.php';
 $csrf = csrf::getToken();?>
 
 <h1> Login Form</h1>
@@ -9,3 +10,5 @@ $csrf = csrf::getToken();?>
     <input type="password" name="password" placeholder="Password">
     <button type="submit">Login</button>
 </form>
+
+<?php require __DIR__ . '/partials/footer.php';?>

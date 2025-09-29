@@ -5,7 +5,7 @@ require_once __DIR__ . '/../utils.php';
 class GalleryController {
     public function list(): void {
         $pdo = DB::pdo();
-        $size = max(7, (int)($_GET['size'] ?? 12)); // 7 pour test
+        $size = max(5, (int)($_GET['size'] ?? 12)); 
         $page = max(1, (int)($_GET['page'] ?? 1));
         $offset = ($page - 1) * $size;
 
