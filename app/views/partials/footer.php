@@ -1,8 +1,6 @@
 </main>
-<footer>
-    <p style="text-align:center; border-top:1px solid;">
-        fbesson camagru
-    </p>
+<footer style="border-top:1px solid #ddd; display:flex; justify-content:center; align-items:center; height:50px;">
+    <p style="margin:0;">fbesson camagru</p>
 </footer>
 </body>
 </html>

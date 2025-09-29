@@ -25,9 +25,7 @@ class GalleryController {
             http_response_code(404); 
             exit('Not found'); 
         }
-
         $pdo = DB::pdo();
-
         // image
         $img = $pdo->prepare("SELECT * FROM images WHERE id = ?");
         $img->execute([$id]);
@@ -36,7 +34,6 @@ class GalleryController {
             http_response_code(404); 
             exit('not found'); 
         }
-
         // likes (correct)
         $st = $pdo->prepare("SELECT COUNT(*) FROM likes WHERE image_id = ?");
         $st->execute([$id]);

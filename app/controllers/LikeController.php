@@ -12,14 +12,19 @@ class LikeController {
             http_response_code(400); 
             exit('bad image'); 
         }
+        //protection for relike (toggle mode)
         $pdo = DB::pdo();
-        try {
-            $st = $pdo->prepare("INSERT INTO likes(user_id, image_id) VALUES (?, ?)");
+        $st = $pdo->prepare("SELECT 1 FROM likes WHERE user_id=? AND image_id=?");
+        $st->execute([$uid, $image_id]);
+        $already = (bool)$st->fetchColumn();
+        if($already){
+            $st = $pdo->prepare("DELETE FROM likes WHERE user_id=? AND image_id=?");
             $st->execute([$uid, $image_id]);
-        } catch (Exception $e) {
-            echo ($e->getMessage());
-
+        } else {
+            $st = $pdo->prepare("INSERT INTO likes(user_id,image_id) VALUES(?,?)");
+            $st->execute([$uid, $image_id]);
         }
         header("Location: /image/$image_id");
+        exit;
     }
 }
