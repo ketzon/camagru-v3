@@ -1,6 +1,4 @@
-<?php require_once __DIR__ . '/../../utils.php'; 
-$uid = auth_id();
-?>
+<?php require_once __DIR__ . '/../../utils.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
