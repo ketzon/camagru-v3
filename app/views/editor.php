@@ -19,9 +19,8 @@
 
 <video id="video" autoplay playsinline></video> 
 <canvas id="canvas"></canvas>
-<button id="snap">take picture</button>
+<button id="snap" disabled>take picture</button>
 
-//upload
 <p>upload picture</p> 
 <input  type="file"
         id="upload"
@@ -43,6 +42,7 @@ const overlay = document.getElementById('overlay');
 const data_url = document.getElementById('data_url');
 const overlay_path = document.getElementById('overlay_path');
 
+
  
 
 //inject stream in object video
@@ -55,7 +55,15 @@ async function startCamera() {
     }
 }
 
-//take a screenshot on click
+overlay.addEventListener('change', () => {
+    if (overlay.value == 'none'){
+        snap.disabled = true;
+    }
+    else {
+        snap.disabled = false;
+    }
+})
+
 document.getElementById('snap').addEventListener('click', () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;

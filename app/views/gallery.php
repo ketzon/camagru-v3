@@ -20,5 +20,4 @@ for ($i=1; $i<=$pages; $i++) {
 }
 echo '</nav>';
 echo '<br/>';
-echo '<a href="/editor"> editor view</a>';
 require __DIR__ . '/partials/footer.php'; ?>
