@@ -8,7 +8,6 @@
     <option value="/overlays/cloud.png">Cloud</option>
     <option value="/overlays/kawaii.png">Kawaii</option>
     <option value="/overlays/beard.png">Beard</option>
-    <option value="/overlays/raindow.png">Rainbow</option>
     <option value="/overlays/cat_claws.png">Cat Claws</option>
     <option value="/overlays/light.png">Lighting</option>
     <option value="/overlays/bubbles.png">Bubbles</option>

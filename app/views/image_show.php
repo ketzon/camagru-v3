@@ -7,7 +7,7 @@
     style="max-width:100%;height:auto;display:block;border:1px solid #ddd;border-radius:8px;"
 >
 
-<p>
+<p style="color:green;">
     <?= (int)$likes ?> like<?= $likes > 1 ? 's' : '' ?>
     <?= !empty($liked) ? '(Already Liked)' : '' ?>
 </p>

@@ -61,11 +61,31 @@ class ImageController {
         header('Location: /image/'.$id);
     }
     public function delete(): void {
-        $image_id = (int)$_POST['image_id'] ?? 0; 
-        echo ("image deleted from db: " . $image_id);
+        Csrf::checkToken();
+        $uid = auth_id();
+        if (!$uid){
+            http_response_code(400);
+            exit;
+        }
         $pdo = DB::pdo();
+        $image_id = (int)$_POST['image_id'] ?? 0; 
+
+        $owner = $pdo->prepare("SELECT user_id path_raw path_final FROM images WHERE id=?");
+        $owner->execute([$image_id]);
+        $img = $owner->fetch();
+        if ((int)$img['user_id'] != $uid){
+            exit ("can't delete image you don't own");
+        }
+        /* echo ("image deleted from db: " . $image_id); */
         $stmt = $pdo->prepare("DELETE FROM images WHERE id=?");
         $stmt->execute([$image_id]);
+        foreach (['path_raw','path_final'] as $elem) {
+            $path = $img[$elem] ?? null;
+            if ($path && is_file($path)) { 
+                @unlink($path); 
+            }
+        }
+        header('Location: /gallery');
 
     }
 }
