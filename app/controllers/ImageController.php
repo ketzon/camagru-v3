@@ -60,4 +60,12 @@ class ImageController {
         // 4) redirect sur futur page
         header('Location: /image/'.$id);
     }
+    public function delete(): void {
+        $image_id = (int)$_POST['image_id'] ?? 0; 
+        echo ("image deleted from db: " . $image_id);
+        $pdo = DB::pdo();
+        $stmt = $pdo->prepare("DELETE FROM images WHERE id=?");
+        $stmt->execute([$image_id]);
+
+    }
 }

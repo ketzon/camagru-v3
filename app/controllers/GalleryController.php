@@ -59,3 +59,4 @@ class GalleryController {
         require __DIR__ . '/../views/image_show.php';
     }
 }
+

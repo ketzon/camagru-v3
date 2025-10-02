@@ -20,6 +20,14 @@
 </form>
 <?php endif; ?>
 
+<?php if ($canInteract): ?>
+<form method="post" action="/image/delete" style="margin:8px 0;">
+    <input type="hidden" name="_csrf" value="<?php require_once __DIR__.'/../csrf.php'; echo htmlspecialchars(Csrf::getToken()); ?>">
+    <input type="hidden" name="image_id" value="<?= (int)$image['id'] ?>">
+    <button type="submit" style="color:red;"><?= 'Delete Picture'?></button>
+</form>
+<?php endif; ?>
+
 <hr>
 
 <h2>Comment</h2>

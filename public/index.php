@@ -75,6 +75,14 @@ $routes = [
         require __DIR__ . '/../app/controllers/CommentController.php';
         (new CommentController)->add();
     },
+    '/image/delete' => function () {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
+            http_response_code(405);
+            exit;
+        }
+        require __DIR__ .  '/../app/controllers/ImageController.php';
+        (new ImageController)->delete();
+    }
 ];
 
 if (preg_match('#^/image/(\d+)$#', $path, $m)) { $_GET['id'] = (int)$m[1]; 
