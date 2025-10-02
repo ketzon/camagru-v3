@@ -70,7 +70,7 @@ class ImageController {
         $pdo = DB::pdo();
         $image_id = (int)$_POST['image_id'] ?? 0; 
 
-        $owner = $pdo->prepare("SELECT user_id path_raw path_final FROM images WHERE id=?");
+        $owner = $pdo->prepare("SELECT user_id, path_raw, path_final FROM images WHERE id=?");
         $owner->execute([$image_id]);
         $img = $owner->fetch();
         if ((int)$img['user_id'] != $uid){
