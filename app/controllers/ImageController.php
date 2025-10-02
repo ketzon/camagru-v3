@@ -74,18 +74,18 @@ class ImageController {
         $owner->execute([$image_id]);
         $img = $owner->fetch();
         if ((int)$img['user_id'] != $uid){
-            exit ("can't delete image you don't own");
+            exit ("can't delete image you don't own");//need to find proper solution
         }
-        /* echo ("image deleted from db: " . $image_id); */
-        $stmt = $pdo->prepare("DELETE FROM images WHERE id=?");
-        $stmt->execute([$image_id]);
+        $pdo->prepare("DELETE FROM images WHERE id=?")->execute([$image_id]);
+        $pdo->prepare("DELETE FROM likes WHERE id=?")->execute([$image_id]);
+        $pdo->prepare("DELETE FROM comments WHERE id=?")->execute([$image_id]);
         foreach (['path_raw','path_final'] as $elem) {
             $path = $img[$elem] ?? null;
             if ($path && is_file($path)) { 
                 @unlink($path); 
             }
-        }
+        }    
         header('Location: /gallery');
-
+        exit;
     }
 }

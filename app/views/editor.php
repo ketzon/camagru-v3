@@ -12,7 +12,6 @@
     <option value="/overlays/light.png">Lighting</option>
     <option value="/overlays/bubbles.png">Bubbles</option>
     <option value="/overlays/anime_hair.png">Anime Hair</option>
-    <option value="/overlays/gas_mask.png">Gas Mask</option>
 </select>
 
 
