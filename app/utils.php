@@ -9,6 +9,10 @@ function auth_id(): ?int {
     }
 }
 
+function getUserName(): string {
+    return (string)$_SESSION['user'];
+}
+
 //si pas co, renvoyer au login
 function require_auth(): void {
     if (!auth_id()) {

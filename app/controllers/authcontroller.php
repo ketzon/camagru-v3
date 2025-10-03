@@ -4,7 +4,7 @@ require_once __DIR__ . '/../csrf.php';
 
 class AuthController {
   public function signup(): void {
-    /* Csrf::checkToken(); */
+    Csrf::checkToken();
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -57,6 +57,7 @@ class AuthController {
 
     if ($user && password_verify($password, $user['pass_hash'])) {
         $_SESSION['uid'] = (int)$user['id'];
+        $_SESSION['user'] = $user['username'];
         flash('ok', '[auth] welcome !');
         header('Location: /');
         exit;

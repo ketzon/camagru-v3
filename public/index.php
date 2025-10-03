@@ -28,6 +28,13 @@ $routes = [
         }
         require __DIR__ . '/../app/views/login.php';
     },
+    '/settings' => function () {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new AuthController)->login();
+            return;
+        }
+        require __DIR__ . '/../app/views/settings.php';
+    },
     '/logout' => function () {
         session_destroy();
         header("Location: /");

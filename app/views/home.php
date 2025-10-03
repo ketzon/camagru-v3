@@ -9,7 +9,7 @@ require __DIR__ . '/partials/header.php';
 <?php endif; ?>
 
 <?php if (auth_id()): ?>
-<p>Logged as a user #<?= auth_id() ?></p>
+<p>Logged as <strong><?= getUserName() ?></strong> #<?= auth_id()?></p>
 <?php endif; ?>
 
 <?php require __DIR__ . '/partials/footer.php'; ?>

@@ -28,6 +28,7 @@ $uid = auth_id();
     <?php if($uid): ?>
     <a href="/gallery">Gallery</a> |
     <a href="/editor">Editor</a> |
+    <a href="/settings">Settings</a> |
     <a class="logout" href="/logout">Logout</a> 
     <?php else: ?>
     <a href="/login">Login</a> |
