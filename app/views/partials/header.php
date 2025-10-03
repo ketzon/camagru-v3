@@ -7,7 +7,10 @@ $uid = auth_id();
     <meta charset="utf-8">
     <title> camagru </title>
     <style>
-    html, body { height:100%; margin:0; }
+    html, body { 
+        height:100%; 
+        margin:0; 
+    }
     body { display:flex; flex-direction:column; font-family:monospace; font-size:20px; min-height:100vh; }
     main { flex:1; padding:12px; }
     .blue { color: #0366d6; }

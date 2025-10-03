@@ -3,6 +3,9 @@ require __DIR__ . '/partials/header.php';
 ?>
 <h1>Galerie</h1>
 
+
+
+
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
     <?php foreach ($rows as $r): ?>
     <a href="/image/<?= (int)$r['id'] ?>" style="text-decoration:none;">
