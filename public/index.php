@@ -29,7 +29,7 @@ $routes = [
         require __DIR__ . '/../app/views/login.php';
     },
     '/settings' => function () {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
             (new AuthController)->settings();
             return;
         }

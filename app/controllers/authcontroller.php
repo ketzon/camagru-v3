@@ -68,8 +68,20 @@ class AuthController {
   }
     public function settings(): void {
         Csrf::checkToken();
+        $uid = auth_id();
+        $pdo = DB::pdo();
         $username = $_POST['newUsername'] ?? '';
-        echo ("username changed to: " . $username);
+        if ($username !== ''){
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
+            $stmt->execute([$uid]);
+            $data = $stmt->fetch();
+            if ($data['username'] === $username){
+                flash("ok", "cant have the same name as before");
+            }
+            header('Location: /setings');
+
+        }
+        header('Location: /settings');
 
         /* $pdo = DB::pdo(); */
         /* $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?"); */
