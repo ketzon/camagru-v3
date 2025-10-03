@@ -13,6 +13,10 @@ function getUserName(): string {
     return (string)$_SESSION['user'];
 }
 
+function getMail(): string {
+    return (string)$_SESSION['mail'];
+}
+
 //si pas co, renvoyer au login
 function require_auth(): void {
     if (!auth_id()) {

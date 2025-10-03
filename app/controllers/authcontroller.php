@@ -58,6 +58,7 @@ class AuthController {
     if ($user && password_verify($password, $user['pass_hash'])) {
         $_SESSION['uid'] = (int)$user['id'];
         $_SESSION['user'] = $user['username'];
+        $_SESSION['mail'] = $user['email'];
         flash('ok', '[auth] welcome !');
         header('Location: /');
         exit;
@@ -65,4 +66,25 @@ class AuthController {
       echo "Identifiants invalides";
     }
   }
+    public function settings(): void {
+        Csrf::checkToken();
+        $username = $_POST['newUsername'] ?? '';
+        echo ("username changed to: " . $username);
+
+        /* $pdo = DB::pdo(); */
+        /* $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?"); */
+        /* $stmt->execute([$email]); */
+        /* $user = $stmt->fetch(); */
+
+        /* if ($user && password_verify($password, $user['pass_hash'])) { */
+        /*     $_SESSION['uid'] = (int)$user['id']; */
+        /*     $_SESSION['user'] = $user['username']; */
+        /*     $_SESSION['mail'] = $user['email']; */
+        /*     flash('ok', '[auth] welcome !'); */
+        /* header('Location: /'); */
+        /* exit; */
+        /* } else { */
+        /*     echo "Identifiants invalides"; */
+        /* } */
+    }
 }
