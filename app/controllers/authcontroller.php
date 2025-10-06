@@ -70,11 +70,32 @@ class AuthController {
         Csrf::checkToken();
         $uid = auth_id();
         $pdo = DB::pdo();
+        //get data
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([$uid]);
+        $data = $stmt->fetch();
         $username = $_POST['newUsername'] ?? '';
+        $email = $_POST['newEmail'] ?? '';
+        if ($email !== ''){
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL )){
+                flash("setWARN", "Please enter a valid email.");
+            }else if ($data['email'] === $email){
+                flash("setWARN", "Same mail as before... choose something else please.");
+            } else {
+                $stmt = $pdo->prepare("SELECT id FROM users WHERE email=?");
+                $stmt->execute([$email]);
+                $exists = $stmt->fetch();
+                if ($exists){
+                    flash("setWARN", "Mail already taken... choose something else please.");
+                } else {
+                    $stmt = $pdo->prepare("UPDATE users SET email=? WHERE id=?");
+                    $stmt->execute([$email, $uid]);
+                    $_SESSION['mail'] = $email;
+                    flash("setVALID", "Mail updated... OK!");
+                }
+            }
+        }
         if ($username !== ''){
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
-            $stmt->execute([$uid]);
-            $data = $stmt->fetch();
             if (strlen($username) < 4 || strlen($username) > 12){
                 flash("setWARN", "Username must be between 4 and 12 characters");
             }

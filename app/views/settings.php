@@ -21,12 +21,12 @@ $csrf = Csrf::getToken(); ?>
 </form>
 <form method="post">
   <input type="hidden" name="_csrf" value="<?php htmlspecialchars($csrf) ?>">
-  <input type="text" name="email" placeholder="New Email">
+  <input type="text" name="newEmail" placeholder="New Email">
   <button type="submit">Change Email</button>
 </form>
 <form method="post">
   <input type="hidden" name="_csrf" value="<?php htmlspecialchars($csrf) ?>">
-  <input type="password" name="password" placeholder="New Password">
+  <input type="password" name="newPassword" placeholder="New Password">
   <button type="submit">Change Password</button>
 </form>
 
