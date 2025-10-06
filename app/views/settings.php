@@ -30,4 +30,10 @@ $csrf = Csrf::getToken(); ?>
   <button type="submit">Change Password</button>
 </form>
 
+<?php if ($m = flash('setVALID')): ?>
+<p style="color:green;"><?= htmlspecialchars($m) ?></p>
+<?php endif; ?>
+<?php if ($m = flash('setWARN')): ?>
+<p style="color:crimson;"><?= htmlspecialchars($m) ?></p>
+<?php endif; ?>
 <?php require __DIR__ . '/partials/footer.php'; ?>

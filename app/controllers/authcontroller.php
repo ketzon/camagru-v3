@@ -75,28 +75,23 @@ class AuthController {
             $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
             $stmt->execute([$uid]);
             $data = $stmt->fetch();
-            if ($data['username'] === $username){
-                flash("ok", "cant have the same name as before");
+            if (strlen($username) < 4 || strlen($username) > 12){
+                flash("setWARN", "[WARN] username must be between 4 and 12 characters");
             }
-            header('Location: /setings');
-
+            else if ($data['username'] === $username){
+                flash("setWARN", "[WARN] can't have the same name as before");
+            }else {
+                $stmt = $pdo->prepare("UPDATE users SET username=? WHERE id=?");
+                try {
+                $stmt->execute([$username, $uid]);
+                }
+                catch (Exception $f){
+                    exit ($f->getMessage());
+                }
+                $_SESSION['user'] = $username;
+                flash("setVALID", "[GOOD] username updated");
+            }
         }
         header('Location: /settings');
-
-        /* $pdo = DB::pdo(); */
-        /* $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?"); */
-        /* $stmt->execute([$email]); */
-        /* $user = $stmt->fetch(); */
-
-        /* if ($user && password_verify($password, $user['pass_hash'])) { */
-        /*     $_SESSION['uid'] = (int)$user['id']; */
-        /*     $_SESSION['user'] = $user['username']; */
-        /*     $_SESSION['mail'] = $user['email']; */
-        /*     flash('ok', '[auth] welcome !'); */
-        /* header('Location: /'); */
-        /* exit; */
-        /* } else { */
-        /*     echo "Identifiants invalides"; */
-        /* } */
     }
 }
