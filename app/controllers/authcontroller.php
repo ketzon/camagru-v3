@@ -76,20 +76,22 @@ class AuthController {
             $stmt->execute([$uid]);
             $data = $stmt->fetch();
             if (strlen($username) < 4 || strlen($username) > 12){
-                flash("setWARN", "[WARN] username must be between 4 and 12 characters");
+                flash("setWARN", "Username must be between 4 and 12 characters");
             }
             else if ($data['username'] === $username){
-                flash("setWARN", "[WARN] can't have the same name as before");
-            }else {
-                $stmt = $pdo->prepare("UPDATE users SET username=? WHERE id=?");
-                try {
-                $stmt->execute([$username, $uid]);
+                flash("setWARN", "Same name as before... choose something else please.");
+            } else {
+                $stmt = $pdo->prepare("SELECT id FROM users WHERE username=?");
+                $stmt->execute([$username]);
+                $exists = $stmt->fetch();
+                if ($exists){
+                    flash("setWARN", "Username already taken... choose something else please.");
+                } else {
+                    $stmt = $pdo->prepare("UPDATE users SET username=? WHERE id=?");
+                    $stmt->execute([$username, $uid]);
+                    $_SESSION['user'] = $username;
+                    flash("setVALID", "Username updated... OK!");
                 }
-                catch (Exception $f){
-                    exit ($f->getMessage());
-                }
-                $_SESSION['user'] = $username;
-                flash("setVALID", "[GOOD] username updated");
             }
         }
         header('Location: /settings');
