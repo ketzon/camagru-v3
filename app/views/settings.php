@@ -26,6 +26,7 @@ $csrf = Csrf::getToken(); ?>
 </form>
 <form method="post">
   <input type="hidden" name="_csrf" value="<?php htmlspecialchars($csrf) ?>">
+  <input type="password" name="currentPassword" placeholder="Password">
   <input type="password" name="newPassword" placeholder="New Password">
   <button type="submit">Change Password</button>
 </form>

@@ -76,6 +76,25 @@ class AuthController {
         $data = $stmt->fetch();
         $username = $_POST['newUsername'] ?? '';
         $email = $_POST['newEmail'] ?? '';
+        $currPw = $_POST['currentPassword'] ?? '';
+        $newPw = $_POST['newPassword'] ?? '';
+        if ($currPw !== '' && $newPw !== ''){
+            $uppercase   = preg_match('@[A-Z]@', $newPw);
+            $lowercase   = preg_match('@[a-z]@', $newPw);
+            $number      = preg_match('@[0-9]@', $newPw);
+            $specialChars = preg_match('@[^\w]@', $newPw);
+            if (!password_verify($currPw, $data['pass_hash'])){
+                flash("setWARN","Original password doesn't match with the one entered");
+            }
+            else if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($newPw) < 8) {
+                flash("setWARN", "New Password should respect the password policy.");
+            } else {
+                $hash = password_hash($newPw, PASSWORD_DEFAULT);
+                $stmt = $pdo->prepare("UPDATE users SET pass_hash=? WHERE id=?");
+                $stmt->execute([$hash, $uid]);
+                flash("setVALID", "Password updated... OK!");
+            }
+        }
         if ($email !== ''){
             if (!filter_var($email, FILTER_VALIDATE_EMAIL )){
                 flash("setWARN", "Please enter a valid email.");
