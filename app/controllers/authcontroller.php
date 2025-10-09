@@ -35,6 +35,11 @@ class AuthController {
     }
     //PASSWORD_DEFAULT = algo bcrypt
     $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    //mail management
+    $subject = "Camagru account registration";
+    $message = "Please valid account registration on camagru website";
+    mail($email, $subject, $message);
     try {
       $pdo = DB::pdo();
       $stmt = $pdo->prepare("INSERT INTO users(username, email, pass_hash) VALUES (?, ?, ?)");

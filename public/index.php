@@ -39,6 +39,7 @@ $routes = [
         session_destroy();
         header("Location: /");
     },
+    '/infos' => fn() => require __DIR__ . '/../app/views/infos.php',
     '/editor' => fn() => require __DIR__ . '/../app/views/editor.php',
 
     '/compose' => function () {
