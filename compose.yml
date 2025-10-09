@@ -2,7 +2,9 @@ services:
   php:
     build: ./docker
     volumes:
+      - ./docker/msmtprc:/etc/msmtprc:ro
       - ./:/var/www
+    env_file: smtp.env
   nginx:
     image: nginx:alpine
     volumes:

@@ -39,7 +39,8 @@ class AuthController {
     //mail management
     $subject = "Camagru account registration";
     $message = "Please valid account registration on camagru website";
-    mail($email, $subject, $message);
+    $headers  = "From: Camagru";
+    mail($email, $subject, $message, $headers);
     try {
       $pdo = DB::pdo();
       $stmt = $pdo->prepare("INSERT INTO users(username, email, pass_hash) VALUES (?, ?, ?)");
