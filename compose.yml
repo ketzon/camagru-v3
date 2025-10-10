@@ -4,7 +4,8 @@ services:
     volumes:
       - ./docker/msmtprc:/etc/msmtprc:ro
       - ./:/var/www
-    env_file: smtp.env
+    env_file: 
+      - smtp.env
   nginx:
     image: nginx:alpine
     volumes:
@@ -14,3 +15,10 @@ services:
       - "8080:80"
     depends_on:
       - php
+
+  # using gmail now
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   ports: 
+  #       - "8025:8025"
+  #       - "1025:1025"

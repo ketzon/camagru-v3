@@ -1,2 +1,5 @@
 smtp.env
+*smtp.env
+.env
+*.env
 tags
