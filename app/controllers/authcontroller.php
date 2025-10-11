@@ -41,9 +41,9 @@ class AuthController {
     $message = "Please valid account registration on camagru website";
     $headers = "From: Camagru <ketzon.contact@gmail.com>\r\n";
     if(mail($email, $subject, $message, $headers)){
-        echo "MAIL SUCCESS";
+        flash("ok", "MAIL SUCCESS");
     }else {
-        echo "MAIL FAIL";
+        flash("ok", "MAIL FAIL");
     }
     try {
       $pdo = DB::pdo();
