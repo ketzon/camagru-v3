@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 session_start([
-  'cookie_httponly' => true, //protection contre les attaques xss, pas de cookie en js
-  'cookie_secure'   => isset($_SERVER['HTTPS']), //si https, cookie envoyer en https only
-  'cookie_samesite' => 'Lax', //pas de cookie auto crossite empeche CSRF (cross site request forgery)
+    'cookie_httponly' => true, //protection contre les attaques xss, pas de cookie en js
+    'cookie_secure'   => isset($_SERVER['HTTPS']), //si https, cookie envoyer en https only
+    'cookie_samesite' => 'Lax', //pas de cookie auto crossite empeche CSRF (cross site request forgery)
 ]);
 
 require __DIR__ . '/../app/DB.php';
@@ -90,7 +90,34 @@ $routes = [
         }
         require __DIR__ .  '/../app/controllers/ImageController.php';
         (new ImageController)->delete();
-    }
+    },
+    '/confirm' => function () {
+        $token = $_GET['t'] ?? '';
+        if ($token === '') {
+            http_response_code(400);
+            echo 'Missing token';
+            return;
+        }
+        $pdo = DB::pdo();
+        $st = $pdo->prepare('SELECT id, email_confirmed FROM users WHERE confirm_token = ?');
+        $st->execute([$token]);
+        $user = $st->fetch();
+        if (!$user) {
+            http_response_code(400);
+            echo 'Invalid or expired token';
+            return;
+        }
+        if ((int)$user['email_confirmed'] === 1) {
+            flash('ok', 'email already confirmed. you can login.');//change flash
+            header('Location: /login');
+            return;
+        }
+        $upd = $pdo->prepare('UPDATE users SET email_confirmed = 1, confirm_token = NULL WHERE id = ?');
+        $upd->execute([(int)$user['id']]);
+
+        flash('ok', 'email confirmed! you can login now.');//change flash
+        header('Location: /login');
+    },
 ];
 
 if (preg_match('#^/image/(\d+)$#', $path, $m)) { $_GET['id'] = (int)$m[1]; 

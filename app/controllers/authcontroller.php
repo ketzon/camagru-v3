@@ -35,12 +35,11 @@ class AuthController {
         }
         //PASSWORD_DEFAULT = algo bcrypt
         $hash = password_hash($password, PASSWORD_DEFAULT);
-
         try {
             $pdo = DB::pdo();
             $stmt = $pdo->prepare("INSERT INTO users(username, email, pass_hash) VALUES (?, ?, ?)");
             $stmt->execute([$username, $email, $hash]);
-            $uid = $pdo->lastInsertId();
+            $uid = (int)$pdo->lastInsertId();
             $token = bin2hex(random_bytes(16));
             $pdo->prepare("UPDATE users SET confirm_token=? WHERE id=?")->execute([$token, $uid]);
 
@@ -53,7 +52,7 @@ class AuthController {
             }else{
                 flash('ok', 'account created, verification could not be sent now');
             }
-            header("Location: /login");
+            header("Location: /");
         } catch (PDOException $e) {
             echo "Erreur: " . htmlspecialchars($e->getMessage());
         }
@@ -68,6 +67,17 @@ class AuthController {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
+
+        if (!$user){
+            flash('ok', 'wrong user');
+            header('location: /login');
+            exit;
+        }
+        if ((int)$user['email_confirmed'] !== 1){
+            flash('ok', "please confirm your mail before login");
+            header('Location: /');
+            exit;
+        }
 
         if ($user && password_verify($password, $user['pass_hash'])) {
             $_SESSION['uid'] = (int)$user['id'];
