@@ -31,6 +31,18 @@ $csrf = Csrf::getToken(); ?>
   <button type="submit">Change Password</button>
 </form>
 
+<p> Please choose if you want <strong>notification</strong> when someone <strong>comment</strong> your picture [by default notification is turned <strong>off</strong>]</p>
+
+<form method="post">
+<input type="radio" name="comment" id="yes" value="yes" />
+<label for="yes">yes</label>
+<input type="radio" name="comment" id="no" value="no"/>
+<label for="no">no</label>
+<button type="submit">valider</button>
+</form>
+
+
+
 <?php if ($m = flash('setVALID')): ?>
 <p style="color:green;"><?= htmlspecialchars($m) ?></p>
 <?php endif; ?>

@@ -94,10 +94,26 @@ class AuthController {
         Csrf::checkToken();
         $uid = auth_id();
         $pdo = DB::pdo();
-        //get data
         $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
         $stmt->execute([$uid]);
         $data = $stmt->fetch();
+        /* if (!isset($_POST['comment'])){ */
+        /*     flash('setWARN', "please select a choice beforme validating."); */
+        /*     header('Location: /settings'); */
+        /*     exit; */
+        /* } */
+        if ($_POST['comment']){
+            $choice =  ($_POST['comment']);
+            if ($choice === 'yes' && (int)$data['notify_on_comment'] === 1){
+                $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['0', $uid]);
+                flash("setVALID","notification on comment actived");
+            }else if ($choice === 'no' && (int)$data['notify_on_comment'] === 0){
+                $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['1', $uid]);
+                flash("setVALID","notification on comment desactived");
+            }else{
+            }
+        }
+        //get data
         $username = $_POST['newUsername'] ?? '';
         $email = $_POST['newEmail'] ?? '';
         $currPw = $_POST['currentPassword'] ?? '';
