@@ -97,12 +97,7 @@ class AuthController {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
         $stmt->execute([$uid]);
         $data = $stmt->fetch();
-        /* if (!isset($_POST['comment'])){ */
-        /*     flash('setWARN', "please select a choice beforme validating."); */
-        /*     header('Location: /settings'); */
-        /*     exit; */
-        /* } */
-        if ($_POST['comment']){
+        if (isset($_POST['comment'])){
             $choice =  ($_POST['comment']);
             if ($choice === 'yes' && (int)$data['notify_on_comment'] === 1){
                 $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['0', $uid]);
