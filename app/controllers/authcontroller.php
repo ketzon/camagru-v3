@@ -99,11 +99,11 @@ class AuthController {
         $data = $stmt->fetch();
         if (isset($_POST['comment'])){
             $choice =  ($_POST['comment']);
-            if ($choice === 'yes' && (int)$data['notify_on_comment'] === 1){
-                $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['0', $uid]);
-                flash("setVALID","notification on comment actived");
-            }else if ($choice === 'no' && (int)$data['notify_on_comment'] === 0){
+            if ($choice === 'yes' && (int)$data['notify_on_comment'] === 0){
                 $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['1', $uid]);
+                flash("setVALID","notification on comment actived");
+            }else if ($choice === 'no' && (int)$data['notify_on_comment'] === 1){
+                $pdo->prepare("UPDATE users SET notify_on_comment=? WHERE id=?")->execute(['0', $uid]);
                 flash("setVALID","notification on comment desactived");
             }else{
             }

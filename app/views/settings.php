@@ -31,7 +31,7 @@ $csrf = Csrf::getToken(); ?>
   <button type="submit">Change Password</button>
 </form>
 
-<p> Please choose if you want <strong>notification</strong> when someone <strong>comment</strong> your picture [by default notification is turned <strong>off</strong>]</p>
+<p> Please choose if you want <strong>notification</strong> when someone <strong>comment</strong> your picture</p>
 
 <form method="post">
 <input type="radio" name="comment" id="yes" value="yes" />
