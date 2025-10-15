@@ -19,7 +19,7 @@ class CommentController {
         $pdo = DB::pdo();
         $st = $pdo->prepare("INSERT INTO comments(user_id, image_id, body) VALUES (?,?,?)");
         $st->execute([$uid, $image_id, $body]);
-
+        //test mail when comment
         $st = $pdo->prepare("
             SELECT u.id AS owner_id, u.username AS owner_name, u.email, u.notify_on_comment, u.email_confirmed
             FROM images i
@@ -28,7 +28,6 @@ class CommentController {
             ");
         $st->execute([$image_id]);
         $owner = $st->fetch();
-
         if ($owner
             && (int)$owner['notify_on_comment'] === 1
             && (int)$owner['email_confirmed'] === 1
