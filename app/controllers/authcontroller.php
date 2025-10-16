@@ -171,4 +171,56 @@ class AuthController {
         }
         header('Location: /settings');
     }
+
+    public function requestReset(): void {
+        Csrf::checkToken();
+        $email = trim($_POST['email'] ?? '');
+        $okMsg = 'If that email exists, a reset link was sent.';
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('ok', $okMsg); header('Location: /forgot'); return;
+        }
+        $pdo = DB::pdo();
+        $st = $pdo->prepare('SELECT id, email_confirmed FROM users WHERE email=?');
+        $st->execute([$email]);
+        $u = $st->fetch();
+        if (!$u || (int)$u['email_confirmed'] !== 1) {
+            flash('ok', $okMsg); header('Location: /forgot'); return;
+        }
+        $token = bin2hex(random_bytes(16));
+        $exp   = time() + 1800; // 30mn
+        $pdo->prepare('UPDATE users SET reset_token=?, reset_expires=? WHERE id=?')->execute([$token, $exp, (int)$u['id']]);
+        $link = "http://localhost:8080/reset?t={$token}&u={$u['id']}";
+        $subject = "Reset your password";
+        $message = "Click here to reset your password (valid 30 min):\n{$link}\n";
+        $headers = "From: Camagru <ketzon.contact@gmail.com>\r\n";
+        @mail($email, $subject, $message, $headers);
+        flash('ok', $okMsg);
+        header('Location: /forgot');
+    }
+
+    public function performReset(): void {
+        Csrf::checkToken();
+        $uid = (int)($_POST['u'] ?? 0);
+        $t   = $_POST['t'] ?? '';
+        $pw  = $_POST['newPassword'] ?? '';
+        if ($uid <= 0 || $t === '' || strlen($pw) < 8) {
+            flash('ok', 'Invalid data.'); 
+            header('Location: /forgot'); 
+            return;
+        }
+        $pdo = DB::pdo();
+        $st = $pdo->prepare('SELECT reset_token, reset_expires FROM users WHERE id=?');
+        $st->execute([$uid]);
+        $row = $st->fetch();
+        if (!$row || $row['reset_token'] !== $t || (int)$row['reset_expires'] < time()) {
+            flash('ok', 'reset link invalid or expired.'); 
+            header('Location: /forgot'); 
+            return;
+        }
+        $hash = password_hash($pw, PASSWORD_DEFAULT);
+        $pdo->prepare('UPDATE users SET pass_hash=?, reset_token=NULL, reset_expires=NULL WHERE id=?')
+            ->execute([$hash, $uid]);
+        flash('ok', 'password changed. you can login now.');
+        header('Location: /login');
+    }
 }

@@ -11,4 +11,6 @@ $csrf = csrf::getToken();?>
     <button type="submit">Login</button>
 </form>
 
+<p>Password lost ? <a href="/forgot">Click here and check your mail</a></p>
+
 <?php require __DIR__ . '/partials/footer.php';?>

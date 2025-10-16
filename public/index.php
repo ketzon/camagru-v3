@@ -91,6 +91,18 @@ $routes = [
         require __DIR__ .  '/../app/controllers/ImageController.php';
         (new ImageController)->delete();
     },
+    '/forgot' => function () {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new AuthController)->requestReset(); return;
+        }
+        require __DIR__.'/../app/views/forgot.php';
+    },
+    '/reset' => function () {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new AuthController)->performReset(); return;
+        }
+        require __DIR__.'/../app/views/reset.php';
+    },
     '/confirm' => function () {
         $token = $_GET['t'] ?? '';
         if ($token === '') {

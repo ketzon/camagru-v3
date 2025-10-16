@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS users(
   pass_hash TEXT NOT NULL,
   email_confirmed INTEGER DEFAULT 0,
   notify_on_comment INTEGER DEFAULT 1,
-  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+  confirm_token TEXT,
+  reset_token TEXT,
+  reset_expires INTEGER
 );
 CREATE TABLE IF NOT EXISTS images(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
