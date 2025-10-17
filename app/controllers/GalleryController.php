@@ -4,6 +4,7 @@ require_once __DIR__ . '/../utils.php';
 
 class GalleryController {
     public function list(): void {
+        $uid = auth_id();
         $pdo = DB::pdo();
         $size = max(5, (int)($_GET['size'] ?? 12)); 
         $page = max(1, (int)($_GET['page'] ?? 1));
@@ -16,6 +17,10 @@ class GalleryController {
         $stmt->execute();
         $rows = $stmt->fetchAll();
         $pages = max(1, (int)ceil($total / $size));
+        /* $st = $pdo->prepare("SELECT username FROM users WHERE id=?"); */
+        /* $st->execute([$uid]); */
+        /* $data = $st->fetch(); */
+        /* var_dump($data); */
         require __DIR__ . '/../views/gallery.php';//use variable in gallery
     }
 

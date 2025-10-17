@@ -203,6 +203,15 @@ class AuthController {
         $uid = (int)($_POST['u'] ?? 0);
         $t   = $_POST['t'] ?? '';
         $pw  = $_POST['newPassword'] ?? '';
+        $uppercase   = preg_match('@[A-Z]@', $pw);
+        $lowercase   = preg_match('@[a-z]@', $pw);
+        $number      = preg_match('@[0-9]@', $pw);
+        $specialChars = preg_match('@[^\w]@', $pw);
+        if(!$uppercase || !$lowercase || !$number || !$specialChars) {
+            flash('ok', "please respect the strict password policy, if you want a new password");
+            header('Location: /'); 
+            return;
+        }
         if ($uid <= 0 || $t === '' || strlen($pw) < 8) {
             flash('ok', 'Invalid data.'); 
             header('Location: /forgot'); 

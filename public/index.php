@@ -40,8 +40,10 @@ $routes = [
         header("Location: /");
     },
     '/infos' => fn() => require __DIR__ . '/../app/views/infos.php',
-    '/editor' => fn() => require __DIR__ . '/../app/views/editor.php',
-
+    '/editor' => function () {
+        require_auth();
+        require __DIR__ . '/../app/views/editor.php';
+    },
     '/compose' => function () {
         require_auth();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
