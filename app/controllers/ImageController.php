@@ -8,6 +8,11 @@ class ImageController {
     public function compose(): void {
         Csrf::checkToken();
         $uid = auth_id();
+        $pdo = DB::pdo();
+        $st = $pdo->prepare("SELECT username FROM users WHERE id=?");
+        $st->execute([$uid]);
+        $data = $st->fetch();
+        $owner = $data['username'];
         if (!$uid){
             http_response_code(400);
             exit;
@@ -53,9 +58,8 @@ class ImageController {
             exit('compose error: '.$e->getMessage());
         }
         // 3) db
-        $pdo = DB::pdo();
-        $stmt = $pdo->prepare("INSERT INTO images(user_id, path_raw, path_final) VALUES (?,?,?)");
-        $stmt->execute([$uid, $srcAbs, $outAbs]);
+        $stmt = $pdo->prepare("INSERT INTO images(user_id, owner, path_raw, path_final) VALUES (?,?,?,?)");
+        $stmt->execute([$uid, $owner, $srcAbs, $outAbs]);
         $id = (int)$pdo->lastInsertId();
         // 4) redirect sur futur page
         header('Location: /image/'.$id);

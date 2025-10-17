@@ -10,7 +10,7 @@ require __DIR__ . '/partials/header.php';
     <?php foreach ($rows as $r): ?>
     <a href="/image/<?= (int)$r['id'] ?>" style="text-decoration:none;">
         <img src="/img/<?= (int)$r['id'] ?>.png" alt="img <?= (int)$r['id'] ?>" style="width:100%;height:auto;display:block;border:1px solid #ddd;border-radius:8px;">
-        <small>#<?= (int)$r['id'] ?> — <?= htmlspecialchars($r['created_at']) ?></small>
+        <small>#<?= (int)$r['id'] ?> — <?= htmlspecialchars($r['created_at']) ?> — by <?= htmlspecialchars($r['owner'])?></small>
     </a>
     <?php endforeach; ?>
 </div>

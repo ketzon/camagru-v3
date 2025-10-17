@@ -11,7 +11,7 @@ class GalleryController {
         $offset = ($page - 1) * $size;
 
         $total = (int)$pdo->query("SELECT COUNT(*) FROM images")->fetchColumn();
-        $stmt = $pdo->prepare("SELECT id, user_id, created_at FROM images ORDER BY id DESC LIMIT ? OFFSET ?");
+        $stmt = $pdo->prepare("SELECT id, user_id, owner, created_at FROM images ORDER BY id DESC LIMIT ? OFFSET ?");
         $stmt->bindValue(1, $size, PDO::PARAM_INT);
         $stmt->bindValue(2, $offset, PDO::PARAM_INT);
         $stmt->execute();
