@@ -89,7 +89,7 @@ document.getElementById('upload').addEventListener('change', (event) => {
     const img = new Image();
     img.onload = () => {
         canvas.width = img.width;
-        canvas.height = img.width;
+        canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
     };
     img.src = URL.createObjectURL(file);
