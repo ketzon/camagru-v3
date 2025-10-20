@@ -9,6 +9,8 @@ session_start([
 require __DIR__ . '/../app/DB.php';
 require __DIR__ . '/../app/controllers/authcontroller.php';
 require __DIR__ . '/../app/utils.php';
+require __DIR__ . '/../app/bootstrap.php';
+ensure_storage();
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
 
