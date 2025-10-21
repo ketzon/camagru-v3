@@ -24,11 +24,11 @@ if ($uid = auth_id()) {
             <option value="/overlays/water_flower.png">Flower</option>
             <option value="/overlays/cloud.png">Cloud</option>
             <option value="/overlays/kawaii.png">Kawaii</option>
+            <option value="/overlays/love.png">Love</option>
             <option value="/overlays/beard.png">Beard</option>
             <option value="/overlays/cat_claws.png">Cat Claws</option>
             <option value="/overlays/light.png">Lighting</option>
             <option value="/overlays/bubbles.png">Bubbles</option>
-            <option value="/overlays/anime_hair.png">Anime Hair</option>
         </select>
         <video id="video" autoplay playsinline></video> 
         <canvas id="canvas"></canvas>
