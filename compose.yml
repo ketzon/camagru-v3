@@ -6,6 +6,8 @@ services:
       - ./:/var/www
     env_file: 
       - smtp.env
+    entrypoint: ["/usr/local/bin/init-perms.sh"]
+    command: ["php-fpm"]
   nginx:
     image: nginx:alpine
     volumes:

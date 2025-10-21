@@ -11,4 +11,7 @@ RUN docker-php-ext-configure gd --with-jpeg --with-freetype \
 
 RUN echo 'sendmail_path = "/usr/bin/msmtp -t"' > /usr/local/etc/php/conf.d/msmtp.ini
 
+COPY init-perms.sh /usr/local/bin/init-perms.sh
+RUN chmod +x /usr/local/bin/init-perms.sh
+
 WORKDIR /var/www
