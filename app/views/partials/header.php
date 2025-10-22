@@ -5,6 +5,7 @@ $uid = auth_id();
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="icon" href="data:,">
     <title> camagru </title>
     <style>
     html, body { 

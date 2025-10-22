@@ -44,7 +44,7 @@ if ($uid = auth_id()) {
     </div>
 
     <aside style="width:150px;">
-        <h3 style="margin:0 0 8px;font-size:14px;">last 5 </h3>
+        <h3 style="margin:0 0 8px;font-size:14px;">last 5</h3>
         <?php if ($last): ?>
         <?php foreach ($last as $im): ?>
         <a href="/image/<?= (int)$im['id'] ?>" style="display:block; width:100%; margin-bottom:15px;">
