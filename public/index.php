@@ -31,6 +31,7 @@ $routes = [
         require __DIR__ . '/../app/views/login.php';
     },
     '/settings' => function () {
+        require_auth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
             (new AuthController)->settings();
             return;
@@ -41,7 +42,6 @@ $routes = [
         session_destroy();
         header("Location: /");
     },
-    '/infos' => fn() => require __DIR__ . '/../app/views/infos.php',
     '/editor' => function () {
         require_auth();
         require __DIR__ . '/../app/views/editor.php';
@@ -88,6 +88,7 @@ $routes = [
         (new CommentController)->add();
     },
     '/image/delete' => function () {
+        require_auth();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
             http_response_code(405);
             exit;
